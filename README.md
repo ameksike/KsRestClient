@@ -1,5 +1,6 @@
 # KsRestClient
-Simple library to operate with REST API as a local library in your project. 
+Simple library to operate with REST API as a local library in your project. For more information see our [wiki](https://github.com/ameksike/ks-rest-client/wiki). 
+
 
 ### Install
 ```js
