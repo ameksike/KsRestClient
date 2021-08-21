@@ -1,6 +1,6 @@
 {
   "name": "ks-rest-client",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Library to help developers create and test REST API requests",
   "main": "index.js",
   "scripts": {
