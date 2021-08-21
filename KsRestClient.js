@@ -206,6 +206,30 @@ class KsRestClient {
             return null;
         }
     }
+
+    /**
+     * @description custom query
+     * @param {*} payload 
+     */
+    async query(payload) {
+        try {
+            const req = this.getReq();
+            const request = {
+                ...req,
+                ...payload
+            };
+            const response = await axios(request);
+            if (!response || response.status != 200) {
+                return null;
+            }
+            return response.data;
+        } catch (err) {
+            if (this.log) {
+                this.log(err);
+            }
+            return null;
+        }
+    }
 }
 
 module.exports = KsRestClient;
