@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ameksike/ksmf.git"
+    "url": "https://github.com/ameksike/ks-rest-client.git"
   },
   "keywords": [
     "Ksike",
@@ -18,9 +18,9 @@
   "author": "Antonio Membrides Espinosa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ameksike/ksmf/issues"
+    "url": "https://github.com/ameksike/ks-rest-client/issues"
   },
-  "homepage": "https://github.com/ameksike/ksmf/wiki",
+  "homepage": "https://github.com/ameksike",
   "dependencies": {
     "axios": "^0.21.1"
   }

@@ -16,9 +16,11 @@ class KsRestClient {
         this.url = '';
         this.key = '';
         this.end = '';
-        this.sec = true;
         this.params = '';
         this.endpoint = '';
+        this.log = (inf) => {
+            console.log('<< ', inf.message ? inf.message : inf);
+        };
         this.token = 'Bearer';
         this.contentType = 'application/json';
         this.set(payload);
@@ -26,7 +28,7 @@ class KsRestClient {
 
     /**
      * @description get params as string 
-     * @param {BOOLEAN} param.sec
+     * @param {FUNCTION} param.log
      * @param {STRING} param.url
      * @param {STRING} param.key
      * @param {STRING} param.end alias for endpoint
@@ -39,7 +41,7 @@ class KsRestClient {
      */
     paramToStr(param) {
         let src = '';
-        if(!param) return src;
+        if (!param) return src;
         for (let i in param) {
             src += `${src === '' ? '' : '&'}${i}=${param[i]}`;
         }
@@ -69,8 +71,9 @@ class KsRestClient {
                 'Content-Type': this.contentType
             }
         };
-        if (this.sec) {
-            this.request.headers['Authorization'] = `${this.token} ${this.key}`
+        if (this.key) {
+            this.request.headers['Authorization'] = this.token ? `${this.token} ${this.key}` : this.key;
+            
         }
         return this;
     }
@@ -79,17 +82,18 @@ class KsRestClient {
      * @description list all entities 
      */
     async list() {
-        return new Promise((resolve, reject) => {
-            try {
-                const response = await axios(this.request);
-                if (!response || response.status != 200) {
-                    return null;
-                }
-                resolve(response.data);
-            } catch (err) {
-                reject(err);
+        try {
+            const response = await axios(this.request);
+            if (!response || response.status != 200) {
+                return null;
             }
-        });
+            return response.data;
+        } catch (err) {
+            if (this.log) {
+                this.log(err);
+            }
+            return null;
+        }
     }
 
     /**
@@ -97,19 +101,20 @@ class KsRestClient {
      * @param {*} payload 
      */
     async insert(payload) {
-        return new Promise((resolve, reject) => {
-            try {
-                this.request.data = payload;
-                this.request.method = 'post';
-                const response = await axios(this.request);
-                if (!response || response.status != 200) {
-                    return null;
-                }
-                resolve(response.data);
-            } catch (err) {
-                reject(err);
+        try {
+            this.request.data = payload;
+            this.request.method = 'post';
+            const response = await axios(this.request);
+            if (!response || response.status != 200) {
+                return null;
             }
-        });
+            return response.data;
+        } catch (err) {
+            if (this.log) {
+                this.log(err);
+            }
+            return null;
+        }
     }
 
     /**
@@ -117,24 +122,25 @@ class KsRestClient {
      * @param {*} payload 
      */
     async update(payload, code = null) {
-        return new Promise((resolve, reject) => {
-            try {
-                const id = code ? code : (payload && payload.code ? payload.code : '');
-                payload = typeof (payload) === 'string' ? {
-                    source: payload
-                } : payload;
-                this.request.url +=  this.paramToStr(this.params) + '/' + id;
-                this.request.data = payload;
-                this.request.method = 'put';
-                const response = await axios(this.request);
-                if (!response || response.status != 200) {
-                    return null;
-                }
-                resolve(response.data);
-            } catch (err) {
-                reject(err);
+        try {
+            const id = code ? code : (payload && payload.code ? payload.code : '');
+            payload = typeof (payload) === 'string' ? {
+                source: payload
+            } : payload;
+            this.request.url += this.paramToStr(this.params) + '/' + id;
+            this.request.data = payload;
+            this.request.method = 'put';
+            const response = await axios(this.request);
+            if (!response || response.status != 200) {
+                return null;
             }
-        });
+            return response.data;
+        } catch (err) {
+            if (this.log) {
+                this.log(err);
+            }
+            return null;
+        }
     }
 
     /**
@@ -142,19 +148,20 @@ class KsRestClient {
      * @param {*} id 
      */
     async delete(code) {
-        return new Promise((resolve, reject) => {
-            try {
-                this.request.url +=  '/' + code ;
-                this.request.method = 'delete';
-                const response = await axios(this.request);
-                if (!response || response.status != 200) {
-                    return null;
-                }
-                resolve(response.data);
-            } catch (err) {
-                reject(err);
+        try {
+            this.request.url += '/' + code;
+            this.request.method = 'delete';
+            const response = await axios(this.request);
+            if (!response || response.status != 200) {
+                return null;
             }
-        });
+            return response.data;
+        } catch (err) {
+            if (this.log) {
+                this.log(err);
+            }
+            return null;
+        }
     }
 
     /**
@@ -163,21 +170,22 @@ class KsRestClient {
      * @param {*} code 
      */
     async select(payload, code = null) {
-        return new Promise((resolve, reject) => {
-            try {
-                const id = code ? code : (payload && payload.code ? payload.code : '');
-                this.request.url += '/' + id;
-                this.request.data = payload;
-                this.request.method = 'get';
-                const response = await axios(this.request);
-                if (!response || response.status != 200) {
-                    return null;
-                }
-                resolve(response.data);
-            } catch (err) {
-                reject(err);
+        try {
+            const id = code ? code : (payload && payload.code ? payload.code : '');
+            this.request.url += '/' + id;
+            this.request.data = payload;
+            this.request.method = 'get';
+            const response = await axios(this.request);
+            if (!response || response.status != 200) {
+                return null;
             }
-        });
+            return response.data;
+        } catch (err) {
+            if (this.log) {
+                this.log(err);
+            }
+            return null;
+        }
     }
 }
 
