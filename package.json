@@ -1,14 +1,26 @@
 {
-  "name": "shortener-client",
+  "name": "ks-rest-client",
   "version": "1.0.0",
-  "description": "",
+  "description": "Library to help developers create and test REST API requests",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest "
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ameksike/ksmf.git"
+  },
+  "keywords": [
+    "Ksike",
+    "REST",
+    "API"
+  ],
+  "author": "Antonio Membrides Espinosa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ameksike/ksmf/issues"
+  },
+  "homepage": "https://github.com/ameksike/ksmf/wiki",
   "dependencies": {
     "axios": "^0.21.1"
   }
