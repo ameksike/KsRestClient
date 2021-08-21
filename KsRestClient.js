@@ -21,6 +21,7 @@ class KsRestClient {
         this.log = (inf) => {
             console.log('<< ', inf.message ? inf.message : inf);
         };
+        this.oauth = null;
         this.token = 'Bearer';
         this.contentType = 'application/json';
         this.set(payload);
@@ -51,7 +52,7 @@ class KsRestClient {
     /**
      * @description get request
      */
-    getReq(){
+    getReq() {
         this.headers = this.headers || {};
         this.options = this.options || {};
         const request = {
@@ -84,13 +85,21 @@ class KsRestClient {
     }
 
     /**
+     * @description alias for list action 
+     * @param {*} query 
+     */
+    async get(query = null) {
+        return this.list(query);
+    }
+
+    /**
      * @description list all entities 
      */
-    async list(query=null) {
+    async list(query = null) {
         try {
             const request = this.getReq();
             query = this.paramToStr(query);
-            query = query ? '?'+query : '';
+            query = query ? '?' + query : '';
             request.url += query;
             const response = await axios(request);
             if (!response || response.status != 200) {
@@ -133,11 +142,11 @@ class KsRestClient {
      * @param {*} id 
      * @param {*} query 
      */
-    async update(payload, id=null, query=null) {
+    async update(payload, id = null, query = null) {
         try {
             const request = this.getReq();
             query = this.paramToStr(query);
-            query = query ? '?'+query : '';
+            query = query ? '?' + query : '';
             id = payload && payload.id ? payload.id : id;
             id = id ? '/' + id : '';
             request.url += id + query;
@@ -160,7 +169,7 @@ class KsRestClient {
      * @description delete an entity
      * @param {*} id 
      */
-    async delete(id, query=null) {
+    async delete(id, query = null) {
         try {
             const request = this.getReq();
             query = this.paramToStr(query);
@@ -186,11 +195,11 @@ class KsRestClient {
      * @param {*} id 
      * @param {*} query 
      */
-    async select(id, query=null) {
+    async select(id, query = null) {
         try {
             const request = this.getReq();
             query = this.paramToStr(query);
-            query = query ? '?'+query : '';
+            query = query ? '?' + query : '';
             id = id ? '/' + id : '';
             request.url += id + query;
             request.method = 'get';
@@ -229,6 +238,63 @@ class KsRestClient {
             }
             return null;
         }
+    }
+
+   /**
+    * @description get authentication token
+    */
+    async connect(opt) {
+        try {
+            const oauth = opt && opt.oauth ? opt.oauth : this.oauth;
+            if (oauth && oauth['grant_type'] === 'client_credentials') {
+                return this.getClientCredentials(oauth);
+            }
+        } catch (err) {
+            if (this.log) {
+                this.log(err);
+            }
+            return false;
+        }
+    }
+
+    /**
+     * @description get Client Credentials for OAuth
+     * @param {STRING} oauth.grant_type VALUES [client_credentials]
+     * @param {STRING} oauth.client_id
+     * @param {STRING} oauth.client_secret
+     * @param {STRING} oauth.client_authentication VALUES [body, header] 
+     * @param {STRING} oauth.url_access 
+     * @param {STRING} oauth.scope 
+     */
+    async getClientCredentials(oauth) {
+        const request = {
+            url: oauth.url_access,
+            method: 'post',
+            data: {
+                grant_type: oauth.grant_type
+            }
+        };
+
+        if (oauth.client_authentication && oauth.client_authentication === 'header') {
+            const key = Buffer.from(oauth.client_id + ':' + oauth.client_secret).toString('base64');
+            request.headers = {
+                'Content-Type': this.contentType,
+                'Authorization': `${this.token} ${key}`
+            }
+        } else {
+            request.data.client_id = oauth.client_id;
+            request.data.client_secret = oauth.client_secret;
+            request.data.scope = oauth.scope;
+        }
+
+        const response = await axios(request);
+        if (!response || (response && (response.status != 200 || !response.data))) {
+            return null;
+        }
+        this.key = response.data.access_token;
+        this.token = response.data.token_type;
+        this.exp = response.data.expires_in;
+        return response.data;
     }
 }
 
