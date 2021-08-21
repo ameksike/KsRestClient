@@ -49,6 +49,26 @@ class KsRestClient {
     }
 
     /**
+     * @description get request
+     */
+    getReq(){
+        this.headers = this.headers || {};
+        this.options = this.options || {};
+        const request = {
+            url: this.url + this.endpoint,
+            method: this.method || 'get',
+            ...this.options,
+            headers: {
+                ...this.headers,
+                'Content-Type': this.contentType
+            }
+        };
+        if (this.key) {
+            request.headers['Authorization'] = this.token ? `${this.token} ${this.key}` : this.key;
+        }
+        return request;
+    }
+    /**
      * @description initialize the service 
      * @param {*} payload.
      */
@@ -60,30 +80,19 @@ class KsRestClient {
             Object.assign(this, payload);
         }
         this.endpoint = this.endpoint || this.end;
-        this.headers = this.headers || {};
-        this.options = this.options || {};
-        this.request = {
-            url: this.url + this.endpoint,
-            method: this.method || 'get',
-            ...this.options,
-            headers: {
-                ...this.headers,
-                'Content-Type': this.contentType
-            }
-        };
-        if (this.key) {
-            this.request.headers['Authorization'] = this.token ? `${this.token} ${this.key}` : this.key;
-            
-        }
         return this;
     }
 
     /**
      * @description list all entities 
      */
-    async list() {
+    async list(query=null) {
         try {
-            const response = await axios(this.request);
+            const request = this.getReq();
+            query = this.paramToStr(query);
+            query = query ? '?'+query : '';
+            request.url += query;
+            const response = await axios(request);
             if (!response || response.status != 200) {
                 return null;
             }
@@ -102,9 +111,10 @@ class KsRestClient {
      */
     async insert(payload) {
         try {
-            this.request.data = payload;
-            this.request.method = 'post';
-            const response = await axios(this.request);
+            const request = this.getReq();
+            request.data = payload;
+            request.method = 'post';
+            const response = await axios(request);
             if (!response || response.status != 200) {
                 return null;
             }
@@ -120,17 +130,20 @@ class KsRestClient {
     /**
      * @description update an entity
      * @param {*} payload 
+     * @param {*} id 
+     * @param {*} query 
      */
-    async update(payload, code = null) {
+    async update(payload, id=null, query=null) {
         try {
-            const id = code ? code : (payload && payload.code ? payload.code : '');
-            payload = typeof (payload) === 'string' ? {
-                source: payload
-            } : payload;
-            this.request.url += this.paramToStr(this.params) + '/' + id;
-            this.request.data = payload;
-            this.request.method = 'put';
-            const response = await axios(this.request);
+            const request = this.getReq();
+            query = this.paramToStr(query);
+            query = query ? '?'+query : '';
+            id = payload && payload.id ? payload.id : id;
+            id = id ? '/' + id : '';
+            request.url += id + query;
+            request.data = payload;
+            request.method = 'put';
+            const response = await axios(request);
             if (!response || response.status != 200) {
                 return null;
             }
@@ -147,11 +160,15 @@ class KsRestClient {
      * @description delete an entity
      * @param {*} id 
      */
-    async delete(code) {
+    async delete(id, query=null) {
         try {
-            this.request.url += '/' + code;
-            this.request.method = 'delete';
-            const response = await axios(this.request);
+            const request = this.getReq();
+            query = this.paramToStr(query);
+            query = query ? '?' + query : '';
+            id = id ? '/' + id : '';
+            request.url += id + query;
+            request.method = 'delete';
+            const response = await axios(request);
             if (!response || response.status != 200) {
                 return null;
             }
@@ -166,16 +183,18 @@ class KsRestClient {
 
     /**
      * @description get an entity
-     * @param {*} payload 
-     * @param {*} code 
+     * @param {*} id 
+     * @param {*} query 
      */
-    async select(payload, code = null) {
+    async select(id, query=null) {
         try {
-            const id = code ? code : (payload && payload.code ? payload.code : '');
-            this.request.url += '/' + id;
-            this.request.data = payload;
-            this.request.method = 'get';
-            const response = await axios(this.request);
+            const request = this.getReq();
+            query = this.paramToStr(query);
+            query = query ? '?'+query : '';
+            id = id ? '/' + id : '';
+            request.url += id + query;
+            request.method = 'get';
+            const response = await axios(request);
             if (!response || response.status != 200) {
                 return null;
             }
