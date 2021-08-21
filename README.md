@@ -14,7 +14,7 @@ const srvAPI = require('ks-rest-client');
 ### Configure
 ```js
 srvAPI.set({
-    url: 'https://api.herokuapp.com',
+    url: 'https://api.custom.com',
     end: '/api/person',
     key: 'MTYyOTQ5NjMxMDI0MDpkZGE5NjVjM2VmNDMwM2I4Njc2YzU4MDAwNjkzMjQ2NQ==',
 });
@@ -52,4 +52,26 @@ srvAPI.delete('82113031705').then(data => console.log(data));
     console.log('>>', data);
 
 })();
+```
+
+### Different service instances 
+```js
+const srvPerson = new srvAPI.API({
+    url: 'https://person.api.com',
+    end: '/api/person',
+    key: 'MTYyOTQ5NjMxMDI0MDpkZGE5NjVjM2VmNDMwM2I4Njc2YzU4MDAwNjkzMjQ2NQ==',
+});
+
+const persons = await srvPerson.list();
+
+// ........................................
+
+const srvPets = new srvAPI.API({
+    url: 'https://pets.api.com',
+    end: '/api/pets',
+    key: 'TWERTW434344442534DFZGE5NjVjM2VmNDMwM2I4Njc2YzU4MDAwNjkzMjQ2NQ==',
+    log: (inf) => console.log(inf)
+});
+
+const pets = await srvPets.list();
 ```
