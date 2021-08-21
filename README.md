@@ -45,9 +45,9 @@ srvAPI.delete('82113031705').then(data => console.log(data));
     }
 
     data = await srvAPI.select('82113031705'); 
-    data = await srvRest.insert({ name: "Juan" });
-    data = await srvRest.update({ name: "Lucy" }, '82113031705');    
-    data = await srvRest.delete('82113031705');
+    data = await srvAPI.insert({ name: "Juan" });
+    data = await srvAPI.update({ name: "Lucy" }, '82113031705');    
+    data = await srvAPI.delete('82113031705');
 
     console.log('>>', data);
 
