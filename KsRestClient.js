@@ -94,6 +94,14 @@ class KsRestClient {
     }
 
     /**
+     * @description alias for insert action 
+     * @param {*} payload 
+     */
+    async add(payload) {
+        return this.insert(payload);
+    }
+
+    /**
      * @description insert an entity
      * @param {*} payload 
      */
