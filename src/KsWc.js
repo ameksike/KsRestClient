@@ -8,7 +8,7 @@
  * */
 const axios = require('axios');
 
-class KsRestClient {
+class KsWc {
     /**
      * @description initialize the service 
      */
@@ -374,4 +374,4 @@ class KsRestClient {
     }
 }
 
-module.exports = KsRestClient;
+module.exports = KsWc;

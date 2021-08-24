@@ -1,3 +1,4 @@
-const KsRestClient = require('./KsRestClient');
-module.exports = new KsRestClient()
-module.exports.API = KsRestClient; 
+const KsWc = require('./src/KsWc');
+module.exports = new KsWc()
+module.exports.API = KsWc; 
+module.exports.KsWc = KsWc; 

@@ -1,14 +1,14 @@
 {
-  "name": "ks-rest-client",
+  "name": "kswc",
   "version": "1.0.7",
-  "description": "Library to help developers create and test REST API requests",
+  "description": "Library to make your Web API deployment easier",
   "main": "index.js",
   "scripts": {
     "test": "jest "
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ameksike/ks-rest-client.git"
+    "url": "https://github.com/ameksike/kswc.git"
   },
   "keywords": [
     "Ksike",
@@ -18,9 +18,9 @@
   "author": "Antonio Membrides Espinosa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ameksike/ks-rest-client/issues"
+    "url": "https://github.com/ameksike/kswc/issues"
   },
-  "homepage": "https://github.com/ameksike",
+  "homepage": "https://github.com/ameksike/kswc/wiki",
   "dependencies": {
     "axios": "^0.21.1"
   }

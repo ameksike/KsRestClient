@@ -1,5 +1,4 @@
-# KsRestClient
-Simple library to operate with REST API as a local library in your project. For more information see our [wiki](https://github.com/ameksike/ks-rest-client/wiki). 
+KsWc is a simple library to make your Web API deployment easier, with it you can operate with [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) API as a local library in your project, focused on the [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) pattern implemented by RESTful services, and support of different automated authentication flows. 
 
 ### Get started
 1. Install
@@ -20,30 +19,3 @@ const srvAPI = require('ks-rest-client');
 ### Advanced topics
 1. [Different Service Instances](https://github.com/ameksike/ks-rest-client/wiki/Instances)
 2. [Authorization](https://github.com/ameksike/ks-rest-client/wiki/Authorization)
-
-### Example 
-```js
-(async function(data){
-
-    const srvAPI = require('ks-rest-client');
-
-    srvAPI.set({
-        url: 'https://api.custom.com',
-        end: '/api/person'
-    });
-
-    const list = await srvAPI.list();
-
-    for(let i of list){
-        console.log('<<', i.name, " << ", i.dni);
-    }
-
-    data = await srvAPI.select('82113031705'); 
-    data = await srvAPI.insert({ name: "Juan" });
-    data = await srvAPI.update({ name: "Lucy" }, '82113031705');    
-    data = await srvAPI.delete('82113031705');
-
-    console.log('>>', data);
-
-})();
-```
