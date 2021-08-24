@@ -1,6 +1,6 @@
 {
   "name": "kswc",
-  "version": "1.0.7",
+  "version": "1.0.2",
   "description": "Library to make your Web API deployment easier",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,8 @@
     "Ksike",
     "REST",
     "API",
-    "WEB"
+    "WEB",
+    "deploy"
   ],
   "author": "Antonio Membrides Espinosa",
   "license": "MIT",
@@ -23,6 +24,6 @@
   },
   "homepage": "https://github.com/ameksike/kswc/wiki",
   "dependencies": {
-    "axios": "^0.21.1"
+    "axios": "^0.18.0"
   }
 }
