@@ -19,3 +19,32 @@ const srvAPI = require('kswc');
 ### Advanced topics
 1. [Different Service Instances](https://github.com/ameksike/kswc/wiki/Instances)
 2. [Authorization](https://github.com/ameksike/kswc/wiki/Authorization)
+
+### Example
+
+```js
+(async function(data){
+
+    const service = require('kswc');
+    
+	service.set({
+		url: 'https://api.domain',
+		end: '/api/service',
+		key: 'MTYyOTQ5NjMxMDIDMwM24MDAwNjkzMjQ2NQ==',
+	});
+
+    data = await service.list();
+
+    for(let item of data){
+        console.log('<<', item.name);
+    }
+
+    data = await service.select('3kmkskw1x8o'); 
+    data = await service.insert({ name: "Juan" });
+    data = await service.update({ name: "Mary" }, '3kmkskw1x8o');    
+    data = await service.delete('3kmkskw1x8o');
+
+    console.log('>>', data);
+
+})();
+```
