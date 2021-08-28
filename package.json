@@ -4,7 +4,9 @@
   "description": "Library to make your Web API deployment easier",
   "main": "index.js",
   "scripts": {
-    "test": "jest "
+    "test": "jest",
+    "test:match": "jest -t",
+    "test:detect": "jest --detectOpenHandles"
   },
   "repository": {
     "type": "git",
@@ -25,5 +27,10 @@
   "homepage": "https://github.com/ameksike/kswc/wiki",
   "dependencies": {
     "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jest": "^26.5.0"
   }
 }
