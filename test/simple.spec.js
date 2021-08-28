@@ -1,12 +1,12 @@
-const app = require('kswc/test/server');
 const srv = require('kswc');
+const app = require('./test.server');
 
 describe('Simple', () => {
     it("should a valid get action", async (done) => {
 
         const endpoint = '/api/person'
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
         });
 
@@ -26,7 +26,7 @@ describe('Simple', () => {
         };
         const endpoint = '/api/person'
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
         });
         const data = await srv.get(query);
@@ -43,7 +43,7 @@ describe('Simple', () => {
 
         const endpoint = '/api/person'
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
         });
         const data = await srv.list();
@@ -61,7 +61,7 @@ describe('Simple', () => {
         };
         const endpoint = '/api/person'
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
         });
         const data = await srv.list(query);
@@ -78,7 +78,7 @@ describe('Simple', () => {
         const endpoint = '/api/person'
         const personId = 25;
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
         });
         const data = await srv.select(personId);
@@ -99,7 +99,7 @@ describe('Simple', () => {
             offset: 3
         };
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
         });
         const data = await srv.select(personId, query);
@@ -119,7 +119,7 @@ describe('Simple', () => {
             age: 55
         };
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
         });
         const data = await srv.insert(payload);
@@ -139,7 +139,7 @@ describe('Simple', () => {
             age: 55
         };
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
         });
         const data = await srv.update(payload, personId);
@@ -155,7 +155,7 @@ describe('Simple', () => {
         const personId = 25;
         const endpoint = '/api/person'
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
         });
         const data = await srv.delete(personId);
@@ -165,12 +165,4 @@ describe('Simple', () => {
         expect(data.path).toBe(endpoint + "/" + personId);
         done();
     });
-});
-
-afterAll(() => {
-   // app.stop();
-});
-
-beforeAll(async () => {
-    app.start();
 });

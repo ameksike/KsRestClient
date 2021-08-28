@@ -1,5 +1,5 @@
-const app = require('kswc/test/server');
 const srv = require('kswc');
+const app = require('./test.server');
 
 const endpoint = '/api/person'
 const personId = 25;
@@ -16,7 +16,7 @@ const query = {
 describe('Auth implicit', () => {
     it("should a valid get action", async (done) => {
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
             key: token
         });
@@ -31,7 +31,7 @@ describe('Auth implicit', () => {
 
     it("should a valid get action with query", async (done) => {
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
             key: token
         });
@@ -48,7 +48,7 @@ describe('Auth implicit', () => {
 
     it("should a valid list action", async (done) => {
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
             key: token
         });
@@ -63,7 +63,7 @@ describe('Auth implicit', () => {
 
     it("should a valid list action with query", async (done) => {
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
             key: token
         });
@@ -80,7 +80,7 @@ describe('Auth implicit', () => {
 
     it("should a valid select action", async (done) => {
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
             key: token
         });
@@ -97,7 +97,7 @@ describe('Auth implicit', () => {
 
     it("should a valid select action with query", async (done) => {
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
             key: token
         });
@@ -114,7 +114,7 @@ describe('Auth implicit', () => {
 
     it("should a valid insert action", async (done) => {
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
             key: token
         });
@@ -130,7 +130,7 @@ describe('Auth implicit', () => {
 
     it("should a valid update action", async (done) => {
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
             key: token
         });
@@ -146,7 +146,7 @@ describe('Auth implicit', () => {
 
     it("should a valid delete action", async (done) => {
         srv.set({
-            url: app.url,
+            url: app.url(),
             end: endpoint,
             key: token
         });
@@ -158,12 +158,4 @@ describe('Auth implicit', () => {
         expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
-});
-
-afterAll(() => {
-    //app.stop();
-});
-
-beforeAll(async () => {
-    //app.start();
 });
