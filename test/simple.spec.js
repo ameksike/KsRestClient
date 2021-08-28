@@ -9,7 +9,6 @@ describe('Simple', () => {
             end: '/api/person',
         });
 
-        console.log(app.url) ;
         const data = await srv.get();
 
         expect(data).toBeInstanceOf(Object);
