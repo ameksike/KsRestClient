@@ -1,6 +1,9 @@
 const srv = require('kswc');
 const app = require('./test.server');
 
+beforeAll(() => app.start());
+afterAll(() => app.stop());
+
 describe('Simple', () => {
     it("should a valid get action", async (done) => {
 

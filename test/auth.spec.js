@@ -13,6 +13,9 @@ const query = {
     offset: 3
 };
 
+beforeAll(() => app.start());
+afterAll(() => app.stop());
+
 describe('Auth implicit', () => {
     it("should a valid get action", async (done) => {
         srv.set({
