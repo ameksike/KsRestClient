@@ -1,33 +1,39 @@
 const app = require('kswc/test/server');
 const srv = require('kswc');
 
-describe('Simple', () => {
-    it("should a valid get action", async (done) => {
+const endpoint = '/api/person'
+const personId = 25;
+const token = 'MTYyOTQ5NjMxMDIDMwM24MDAwNjkzMjQ2NQ==';
+const payload = {
+    name: 'Jon',
+    age: 55
+};
+const query = {
+    limit: 10,
+    offset: 3
+};
 
-        const endpoint = '/api/person'
+describe('Auth implicit', () => {
+    it("should a valid get action", async (done) => {
         srv.set({
             url: app.url,
             end: endpoint,
+            key: token
         });
-
         const data = await srv.get();
 
         expect(data).toBeInstanceOf(Object);
         expect(data.method).toBe('GET');
         expect(data.path).toBe(endpoint);
-
+        expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
 
     it("should a valid get action with query", async (done) => {
-        const query = {
-            limit: 10,
-            offset: 3
-        };
-        const endpoint = '/api/person'
         srv.set({
             url: app.url,
             end: endpoint,
+            key: token
         });
         const data = await srv.get(query);
 
@@ -36,33 +42,30 @@ describe('Simple', () => {
         expect(data.path).toBe(endpoint);
         expect(parseInt(data.param.limit)).toBe(query.limit);
         expect(parseInt(data.param.offset)).toBe(query.offset);
+        expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
 
     it("should a valid list action", async (done) => {
-
-        const endpoint = '/api/person'
         srv.set({
             url: app.url,
             end: endpoint,
+            key: token
         });
         const data = await srv.list();
 
         expect(data).toBeInstanceOf(Object);
         expect(data.method).toBe('GET');
         expect(data.path).toBe(endpoint);
+        expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
 
     it("should a valid list action with query", async (done) => {
-        const query = {
-            limit: 10,
-            offset: 3
-        };
-        const endpoint = '/api/person'
         srv.set({
             url: app.url,
             end: endpoint,
+            key: token
         });
         const data = await srv.list(query);
 
@@ -71,15 +74,15 @@ describe('Simple', () => {
         expect(data.path).toBe(endpoint);
         expect(parseInt(data.param.limit)).toBe(query.limit);
         expect(parseInt(data.param.offset)).toBe(query.offset);
+        expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
 
     it("should a valid select action", async (done) => {
-        const endpoint = '/api/person'
-        const personId = 25;
         srv.set({
             url: app.url,
             end: endpoint,
+            key: token
         });
         const data = await srv.select(personId);
 
@@ -88,19 +91,15 @@ describe('Simple', () => {
         expect(data.param.limit).toBe(undefined);
         expect(data.param.offset).toBe(undefined);
         expect(data.path).toBe(endpoint + "/" + personId);
+        expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
 
     it("should a valid select action with query", async (done) => {
-        const endpoint = '/api/person'
-        const personId = 25;
-        const query = {
-            limit: 10,
-            offset: 3
-        };
         srv.set({
             url: app.url,
             end: endpoint,
+            key: token
         });
         const data = await srv.select(personId, query);
 
@@ -109,18 +108,15 @@ describe('Simple', () => {
         expect(parseInt(data.param.limit)).toBe(query.limit);
         expect(parseInt(data.param.offset)).toBe(query.offset);
         expect(data.path).toBe(endpoint + "/" + personId);
+        expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
 
     it("should a valid insert action", async (done) => {
-        const endpoint = '/api/person'
-        const payload = {
-            name: 'Jon',
-            age: 55
-        };
         srv.set({
             url: app.url,
             end: endpoint,
+            key: token
         });
         const data = await srv.insert(payload);
 
@@ -128,19 +124,15 @@ describe('Simple', () => {
         expect(data.method).toBe('POST');
         expect(data.body.name).toBe(payload.name);
         expect(data.path).toBe(endpoint);
+        expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
 
     it("should a valid update action", async (done) => {
-        const personId = 25;
-        const endpoint = '/api/person'
-        const payload = {
-            name: 'Jon',
-            age: 55
-        };
         srv.set({
             url: app.url,
             end: endpoint,
+            key: token
         });
         const data = await srv.update(payload, personId);
 
@@ -148,29 +140,30 @@ describe('Simple', () => {
         expect(data.method).toBe('PUT');
         expect(data.body.name).toBe(payload.name);
         expect(data.path).toBe(endpoint + "/" + personId);
+        expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
 
     it("should a valid delete action", async (done) => {
-        const personId = 25;
-        const endpoint = '/api/person'
         srv.set({
             url: app.url,
             end: endpoint,
+            key: token
         });
         const data = await srv.delete(personId);
 
         expect(data).toBeInstanceOf(Object);
         expect(data.method).toBe('DELETE');
         expect(data.path).toBe(endpoint + "/" + personId);
+        expect(data.header.authorization).toBe(`Bearer ${token}`);
         done();
     });
 });
 
 afterAll(() => {
-   // app.stop();
+    //app.stop();
 });
 
 beforeAll(async () => {
-    app.start();
+    //app.start();
 });
