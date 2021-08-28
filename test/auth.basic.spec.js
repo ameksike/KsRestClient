@@ -89,4 +89,35 @@ describe('Auth Basic', () => {
         expect(data.metadata.header.authorization).toBe(`Bearer ${connect.auth.token}`);
         done();
     });
+
+    it("should a valid dynamic auth but Non-standard Basic Authentication", async (done) => {
+        srv.set({
+            url: app.url(),
+            end: endpoint,
+            basic: {
+                ...credential,
+                url_access: app.url() + endpoint_auth_basic,
+                token_path: 'auth.token',
+
+                client_authentication: 'body',
+                client_id_field: 'email',
+                client_secret_field: 'passw'
+            }
+        });
+
+        const connect = await srv.connect();
+        expect(connect).toBeInstanceOf(Object);
+        expect(connect.metadata.path).toBe(endpoint_auth_basic);
+        expect(connect.metadata.header.authorization).toBe(undefined);
+        expect(connect.metadata.body.email).toBe(credential.client_id);
+        expect(connect.metadata.body.passw).toBe(credential.client_secret);
+        expect(connect.metadata.method).toBe('POST');
+
+        const data = await srv.get();
+        expect(data).toBeInstanceOf(Object);
+        expect(data.metadata.method).toBe('GET');
+        expect(data.metadata.path).toBe(endpoint);
+        expect(data.metadata.header.authorization).toBe(`Bearer ${connect.auth.token}`);
+        done();
+    });
 });
