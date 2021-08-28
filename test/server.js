@@ -21,6 +21,7 @@ app.start = () => {
 		app.www.all('*', (req, res, next) => {
 			res.json({
 				body: req.body,
+				path: req.path,
 				param: req.query,
 				params: req.params,
 				method: req.method,
