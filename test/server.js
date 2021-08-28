@@ -26,7 +26,7 @@ app.start = () => {
 		});
 
 		app.srv = app.www.listen(app.port, () => {
-			console.log('<<<', `http://localhost:${app.port}`);
+			//console.log('<<<', `http://localhost:${app.port}`);
 		});
 
 		return app;
