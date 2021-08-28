@@ -20,14 +20,32 @@ app.start = () => {
 			extended: false
 		}));
 
+		app.www.post('/auth/basic', (req, res, next) => {
+			res.json({
+				auth: {
+					token: 'MTYyOTQ5NjMxMDI0MDpkZGE5NjVjM2VmNDMwM2I4Njc2YzU4MDAwNjkzMjQ2NQ=='
+				},
+				metadata: {
+					body: req.body,
+					path: req.path,
+					param: req.query,
+					params: req.params,
+					method: req.method,
+					header: req.headers
+				}
+			});
+		});
+
 		app.www.all('*', (req, res, next) => {
 			res.json({
-				body: req.body,
-				path: req.path,
-				param: req.query,
-				params: req.params,
-				method: req.method,
-				header: req.headers
+				metadata: {
+					body: req.body,
+					path: req.path,
+					param: req.query,
+					params: req.params,
+					method: req.method,
+					header: req.headers
+				}
 			});
 		});
 

@@ -16,8 +16,8 @@ describe('Simple', () => {
         const data = await srv.get();
 
         expect(data).toBeInstanceOf(Object);
-        expect(data.method).toBe('GET');
-        expect(data.path).toBe(endpoint);
+        expect(data.metadata.method).toBe('GET');
+        expect(data.metadata.path).toBe(endpoint);
 
         done();
     });
@@ -35,10 +35,10 @@ describe('Simple', () => {
         const data = await srv.get(query);
 
         expect(data).toBeInstanceOf(Object);
-        expect(data.method).toBe('GET');
-        expect(data.path).toBe(endpoint);
-        expect(parseInt(data.param.limit)).toBe(query.limit);
-        expect(parseInt(data.param.offset)).toBe(query.offset);
+        expect(data.metadata.method).toBe('GET');
+        expect(data.metadata.path).toBe(endpoint);
+        expect(parseInt(data.metadata.param.limit)).toBe(query.limit);
+        expect(parseInt(data.metadata.param.offset)).toBe(query.offset);
         done();
     });
 
@@ -52,8 +52,8 @@ describe('Simple', () => {
         const data = await srv.list();
 
         expect(data).toBeInstanceOf(Object);
-        expect(data.method).toBe('GET');
-        expect(data.path).toBe(endpoint);
+        expect(data.metadata.method).toBe('GET');
+        expect(data.metadata.path).toBe(endpoint);
         done();
     });
 
@@ -70,10 +70,10 @@ describe('Simple', () => {
         const data = await srv.list(query);
 
         expect(data).toBeInstanceOf(Object);
-        expect(data.method).toBe('GET');
-        expect(data.path).toBe(endpoint);
-        expect(parseInt(data.param.limit)).toBe(query.limit);
-        expect(parseInt(data.param.offset)).toBe(query.offset);
+        expect(data.metadata.method).toBe('GET');
+        expect(data.metadata.path).toBe(endpoint);
+        expect(parseInt(data.metadata.param.limit)).toBe(query.limit);
+        expect(parseInt(data.metadata.param.offset)).toBe(query.offset);
         done();
     });
 
@@ -87,10 +87,10 @@ describe('Simple', () => {
         const data = await srv.select(personId);
 
         expect(data).toBeInstanceOf(Object);
-        expect(data.method).toBe('GET');
-        expect(data.param.limit).toBe(undefined);
-        expect(data.param.offset).toBe(undefined);
-        expect(data.path).toBe(endpoint + "/" + personId);
+        expect(data.metadata.method).toBe('GET');
+        expect(data.metadata.param.limit).toBe(undefined);
+        expect(data.metadata.param.offset).toBe(undefined);
+        expect(data.metadata.path).toBe(endpoint + "/" + personId);
         done();
     });
 
@@ -108,10 +108,10 @@ describe('Simple', () => {
         const data = await srv.select(personId, query);
 
         expect(data).toBeInstanceOf(Object);
-        expect(data.method).toBe('GET');
-        expect(parseInt(data.param.limit)).toBe(query.limit);
-        expect(parseInt(data.param.offset)).toBe(query.offset);
-        expect(data.path).toBe(endpoint + "/" + personId);
+        expect(data.metadata.method).toBe('GET');
+        expect(parseInt(data.metadata.param.limit)).toBe(query.limit);
+        expect(parseInt(data.metadata.param.offset)).toBe(query.offset);
+        expect(data.metadata.path).toBe(endpoint + "/" + personId);
         done();
     });
 
@@ -128,9 +128,9 @@ describe('Simple', () => {
         const data = await srv.insert(payload);
 
         expect(data).toBeInstanceOf(Object);
-        expect(data.method).toBe('POST');
-        expect(data.body.name).toBe(payload.name);
-        expect(data.path).toBe(endpoint);
+        expect(data.metadata.method).toBe('POST');
+        expect(data.metadata.body.name).toBe(payload.name);
+        expect(data.metadata.path).toBe(endpoint);
         done();
     });
 
@@ -148,9 +148,9 @@ describe('Simple', () => {
         const data = await srv.update(payload, personId);
 
         expect(data).toBeInstanceOf(Object);
-        expect(data.method).toBe('PUT');
-        expect(data.body.name).toBe(payload.name);
-        expect(data.path).toBe(endpoint + "/" + personId);
+        expect(data.metadata.method).toBe('PUT');
+        expect(data.metadata.body.name).toBe(payload.name);
+        expect(data.metadata.path).toBe(endpoint + "/" + personId);
         done();
     });
 
@@ -164,8 +164,8 @@ describe('Simple', () => {
         const data = await srv.delete(personId);
 
         expect(data).toBeInstanceOf(Object);
-        expect(data.method).toBe('DELETE');
-        expect(data.path).toBe(endpoint + "/" + personId);
+        expect(data.metadata.method).toBe('DELETE');
+        expect(data.metadata.path).toBe(endpoint + "/" + personId);
         done();
     });
 });
