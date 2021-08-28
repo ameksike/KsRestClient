@@ -3,8 +3,9 @@ const bodyParser = require('body-parser');
 
 const app = {};
 
+app.host = '127.0.0.1';
 app.port = process.env.PORT || 3333;
-app.url = `http://localhost:${app.port}`;
+app.url = `http://${app.host}:${app.port}`;
 
 app.start = () => {
 	try {
