@@ -260,7 +260,7 @@ class KsWc {
      * @param {STRING} oauth.scope 
      */
     async getClientCredentials(oauth) {
-        if(!opt.url_access ){
+        if(!oauth.url_access ){
             return null;
         }
         const request = {
