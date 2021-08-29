@@ -7,10 +7,6 @@ const payload = {
     name: 'Jon',
     age: 55
 };
-const query = {
-    limit: 10,
-    offset: 3
-};
 const credential = {
     client_id: '5d6fd52d1796bd41632099cb5444b7f6',
     client_secret: 'b4ffbdb0e2c9efb45d5963370c2381a5',
