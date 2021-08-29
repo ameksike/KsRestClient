@@ -9,7 +9,7 @@
 const axios = require('axios');
 const KsCs = require('./KsCs');
 
-class KsWc extends KsCs {
+class KsRest extends KsCs {
     /**
      * @description get request
      */
@@ -289,4 +289,4 @@ class KsWc extends KsCs {
     }
 }
 
-module.exports = KsWc;
+module.exports = KsRest;

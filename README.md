@@ -19,6 +19,8 @@ const srvAPI = require('kswc');
 ### Advanced topics
 1. [Different Service Instances](https://github.com/ameksike/kswc/wiki/Instances)
 2. [Authorization](https://github.com/ameksike/kswc/wiki/Authorization)
+3. [Multi endpoints](https://github.com/ameksike/kswc/wiki/Multi-endpoints)
+4. [Extension](https://github.com/ameksike/kswc/wiki/Extension)
 
 ### Example
 
