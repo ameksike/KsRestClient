@@ -134,6 +134,25 @@ describe('Simple', () => {
         done();
     });
 
+    it("should a valid add action", async (done) => {
+        const endpoint = '/api/person'
+        const payload = {
+            name: 'Jon',
+            age: 55
+        };
+        srv.set({
+            url: app.url(),
+            end: endpoint,
+        });
+        const data = await srv.add(payload);
+
+        expect(data).toBeInstanceOf(Object);
+        expect(data.metadata.method).toBe('POST');
+        expect(data.metadata.body.name).toBe(payload.name);
+        expect(data.metadata.path).toBe(endpoint);
+        done();
+    });
+
     it("should a valid update action", async (done) => {
         const personId = 25;
         const endpoint = '/api/person'

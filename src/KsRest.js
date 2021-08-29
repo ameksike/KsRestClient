@@ -7,27 +7,9 @@
  * @version    	1.0 
  * */
 const axios = require('axios');
+const KsCs = require('./KsCs');
 
-class KsWc {
-    /**
-     * @description initialize the service 
-     */
-    constructor(payload = null) {
-        this.url = '';
-        this.key = '';
-        this.end = '';
-        this.params = '';
-        this.endpoint = '';
-        this.log = (inf) => {
-            console.log('<< ', inf.message ? inf.message : inf);
-        };
-        this.oauth = null;
-        this.basic = null;
-        this.token = 'Bearer';
-        this.contentType = 'application/json';
-        this.set(payload);
-    }
-
+class KsWc extends KsCs {
     /**
      * @description get request
      */
@@ -47,29 +29,6 @@ class KsWc {
             request.headers['Authorization'] = this.token ? `${this.token} ${this.key}` : this.key;
         }
         return request;
-    }
-    
-    /**
-     * @description initialize the service 
-     * @param {*} payload.
-     */
-    set(payload = null) {
-        if (!payload) return this;
-        if (typeof (payload) === 'string') {
-            this.endpoint = payload;
-        } else {
-            Object.assign(this, payload);
-        }
-        this.endpoint = this.endpoint || this.end;
-        return this;
-    }
-
-    /**
-     * @description alias for list action 
-     * @param {*} query 
-     */
-    async get(query = null) {
-        return this.list(query);
     }
 
     /**
@@ -92,14 +51,6 @@ class KsWc {
             }
             return null;
         }
-    }
-
-    /**
-     * @description alias for insert action 
-     * @param {*} payload 
-     */
-    async add(payload) {
-        return this.insert(payload);
     }
 
     /**
@@ -228,16 +179,16 @@ class KsWc {
         }
     }
 
-   /**
-    * @description get authentication token
-    */
+    /**
+     * @description get authentication token
+     */
     async connect(opt) {
         try {
             const oauth = opt && opt.oauth ? opt.oauth : this.oauth;
             const basic = opt && opt.basic ? opt.basic : this.basic;
             if (oauth && oauth['grant_type'] === 'client_credentials') {
                 return this.getClientCredentials(oauth);
-            }else if(basic){
+            } else if (basic) {
                 return this.getBasicCredentials(basic);
             }
             return null;
@@ -260,7 +211,7 @@ class KsWc {
      * @param {STRING} oauth.scope 
      */
     async getClientCredentials(oauth) {
-        if(!oauth.url_access ){
+        if (!oauth.url_access) {
             return null;
         }
         const request = {
@@ -309,20 +260,20 @@ class KsWc {
         opt.client_authentication = opt.client_authentication || 'header';
         opt.client_id_field = opt.client_id_field || 'username';
         opt.client_secret_field = opt.client_secret_field || 'password';
-        if(!opt.url_access ){
+        if (!opt.url_access) {
             return null;
         }
         const key = Buffer.from(opt.client_id + ':' + opt.client_secret).toString('base64');
         const request = {
             url: opt.url_access,
-            method: 'post' 
+            method: 'post'
         };
-        if(opt.client_authentication.toLowerCase() === 'header'){
+        if (opt.client_authentication.toLowerCase() === 'header') {
             request.headers = {
                 'Content-Type': this.contentType,
                 'Authorization': `Basic ${key}`
             }
-        }else{
+        } else {
             request.data = {
                 [opt.client_id_field]: opt.client_id,
                 [opt.client_secret_field]: opt.client_secret
@@ -335,43 +286,6 @@ class KsWc {
         const tok = this.getFromPath(response.data, opt.token_path);
         this.key = tok || response.data;
         return response.data;
-    }
-
-    /**
-     * @description get From Path
-     * @param {*} obj 
-     * @param {*} path 
-     */
-    getFromPath(obj, path=null){
-        if(!path) return null;
-        let data = null;
-        const props = path instanceof Object ? path : path.split('.');
-        for(let i in props){
-            data = data ? data[props[i]] : obj[props[i]] ;
-        }
-        return data;
-    }
-
-    /**
-     * @description get params as string 
-     * @param {FUNCTION} param.log
-     * @param {STRING} param.url
-     * @param {STRING} param.key
-     * @param {STRING} param.end alias for endpoint
-     * @param {OBJECT} param.params 
-     * @param {STRING} param.endpoint 
-     * @param {STRING} param.token default Bearer
-     * @param {STRING} param.contentType default application/json
-     * @param {STRING} param.endpoint 
-     * @param {OBJECT} param.headers 
-     */
-    paramToStr(param) {
-        let src = '';
-        if (!param) return src;
-        for (let i in param) {
-            src += `${src === '' ? '' : '&'}${i}=${param[i]}`;
-        }
-        return src;
     }
 }
 
