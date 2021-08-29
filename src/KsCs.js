@@ -102,6 +102,14 @@ class KsCs {
     async query(payload) {}
 
     /**
+     * @description custom query
+     * @param {*} payload 
+     */
+    async request(payload) {
+        return this.query(payload);
+    }
+
+    /**
      * @description get authentication token
      */
     async connect(opt) {}

@@ -187,4 +187,26 @@ describe('Simple', () => {
         expect(data.metadata.path).toBe(endpoint + "/" + personId);
         done();
     });
+
+    it("should a valid custom action", async (done) => {
+        const endpoint = '/api/person'
+        const payload = {
+            dni: 324234423423,
+            age: 21
+        };
+        const data = await srv.request({
+            url: app.url() + endpoint,
+            method: 'PUT',
+            data: {
+                ...payload
+            }
+        });
+
+        expect(data).toBeInstanceOf(Object);
+        expect(data.metadata.method).toBe('PUT');
+        expect(data.metadata.path).toBe(endpoint);
+        expect(data.metadata.body.dni).toBe(payload.dni);
+        expect(data.metadata.body.age).toBe(payload.age);
+        done();
+    });
 });

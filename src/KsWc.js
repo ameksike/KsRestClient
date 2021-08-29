@@ -126,6 +126,14 @@ class KsWc {
         if (!this.default) return false;
         return this.default.query(payload);
     }
+    
+    /**
+     * @description custom query
+     * @param {*} payload 
+     */
+    async request(payload) {
+        return this.query(payload);
+    }
 
     /**
      * @description get authentication token
