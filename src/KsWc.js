@@ -26,7 +26,7 @@ class KsWc {
     set(payload = null) {
         if (!payload) return this;
         if (payload.driver) {
-            this.driver = payload.driver instanceof KsCs ? payload.driver : this.driver;
+            this.driver = payload.driver.prototype instanceof KsCs ? payload.driver : this.driver;
             delete payload.driver;
         };
         if (Object.keys(payload).length === 0) return this;
@@ -66,7 +66,7 @@ class KsWc {
      */
     async get(query = null) {
         if (!this.default) return false;
-        return this.default.list(query);
+        return this.default.get(query);
     }
 
     /**
@@ -83,7 +83,7 @@ class KsWc {
      */
     async add(payload) {
         if (!this.default) return false;
-        return this.default.insert(payload);
+        return this.default.add(payload);
     }
 
     /**
@@ -139,7 +139,8 @@ class KsWc {
      * @param {*} payload 
      */
     async request(payload) {
-        return this.query(payload);
+        if (!this.default) return false;
+        return this.default.request(payload);
     }
 
     /**
