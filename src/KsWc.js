@@ -14,8 +14,9 @@ class KsWc {
      * @description initialize the service 
      */
     constructor(payload = null) {
-        this.default = this.build(payload);
+        this.driver = KsRest;
         this.config = {};
+        this.set(payload);
     }
 
     /**
@@ -24,11 +25,16 @@ class KsWc {
      */
     set(payload = null) {
         if (!payload) return this;
+        if (payload.driver) {
+            this.driver = payload.driver instanceof KsCs ? payload.driver : this.driver;
+            delete payload.driver;
+        };
+        if (Object.keys(payload).length === 0) return this;
         this.config = Object.assign(this.config, payload);
         this.config.end = this.config.end ? this.config.end : this.config.endpoint;
         if (!this.config.end) return this;
         if (typeof (this.config.end) === 'object') {
-            if(!this.config.end.default){
+            if (!this.config.end.default) {
                 throw new Error('"default" endpoint is required');
             }
             const opt = JSON.parse(JSON.stringify(this.config));
@@ -50,7 +56,8 @@ class KsWc {
      * @param {*} opt 
      */
     build(opt) {
-        return new KsRest(opt);
+        const Drv = this.driver;
+        return new Drv(opt);
     }
 
     /**
@@ -126,7 +133,7 @@ class KsWc {
         if (!this.default) return false;
         return this.default.query(payload);
     }
-    
+
     /**
      * @description custom query
      * @param {*} payload 
@@ -141,8 +148,8 @@ class KsWc {
     async connect(opt) {
         if (!this.default) return false;
         const token = await this.default.connect(opt);
-        for(let i in this){
-            if(i !== 'default' && this[i] && this[i] instanceof KsCs){
+        for (let i in this) {
+            if (i !== 'default' && this[i] && this[i] instanceof KsCs) {
                 this[i].key = this.default.key;
                 this[i].exp = this.default.exp;
                 this[i].token = this.default.token;
