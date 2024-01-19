@@ -1,11 +1,13 @@
-/*
+/**
  * @author		Antonio Membrides Espinosa
  * @email		tonykssa@gmail.com
  * @date		20/08/2021
- * @copyright  	Copyright (c) 2020-2030
+ * @description Observer pattern
+ * @copyright  	Copyright (c) 2019-2050
  * @license    	GPL
- * @version    	1.0 
- * */
+ * @version    	1.0
+ **/
+
 const KsRest = require('./KsRest');
 const KsCs = require('./KsCs');
 
@@ -21,7 +23,7 @@ class KsWc {
 
     /**
      * @description initialize the service 
-     * @param {*} payload.
+     * @param {*} payload
      */
     set(payload = null) {
         if (!payload) return this;

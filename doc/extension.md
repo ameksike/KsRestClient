@@ -40,94 +40,94 @@ The **KsCs** controller, unlike **KsRest**, does not define how requests are mad
 class KsCs {
     /**
      * @description initialize the service 
-     * @param {OBJECT} options
+     * @param {Object} options
      */
     constructor(payload = null) {}
 
     /**
      * @description initialize the service 
-     * @param {OBJECT} options
-     * @return {OBJECT} KsCs
+     * @param {Object} options
+     * @return {Object} KsCs
      */
     set(options = null) {}
 
     /**
      * @description list all entities, alias for list  
-     * @param {OBJECT} query
+     * @param {Object} query
      * @param {*} query 
      */
     async get(query = null) {}
 
     /**
      * @description list all entities 
-     * @param {OBJECT} query
+     * @param {Object} query
      * @return {*}  
      */
     async list(query = null) {}
 
     /**
      * @description insert an entity, alias for insert
-     * @param {OBJECT} payload 
-     * @return {OBJECT} entity 
+     * @param {Object} payload 
+     * @return {Object} entity 
      */
     async add(payload) {}
 
     /**
      * @description insert an entity
-     * @param {OBJECT} payload 
-     * @return {OBJECT} entity 
+     * @param {Object} payload 
+     * @return {Object} entity 
      */
     async insert(payload) {}
 
     /**
      * @description update an entity
-     * @param {OBJECT} payload 
+     * @param {Object} payload 
      * @param {STRING|NUMBER} id 
-     * @param {OBJECT} query 
-     * @return {OBJECT} entity 
+     * @param {Object} query 
+     * @return {Object} entity 
      */
     async update(payload, id = null, query = null) {}
 
     /**
      * @description delete an entity
      * @param {STRING|NUMBER} id 
-     * @return {OBJECT} entity 
+     * @return {Object} entity 
      */
     async delete(id, query = null) {}
 
     /**
      * @description get an entity
      * @param {STRING|NUMBER} id 
-     * @param {OBJECT} query 
-     * @return {OBJECT} entity 
+     * @param {Object} query 
+     * @return {Object} entity 
      */
     async select(id, query = null) {}
 
     /**
      * @description custom query, alias for request
-     * @param {OBJECT} payload 
-     * @return {OBJECT}
+     * @param {Object} payload 
+     * @return {Object}
      */
     async query(payload) {}
 
     /**
      * @description custom query
-     * @param {OBJECT} payload 
-     * @return {OBJECT}
+     * @param {Object} payload 
+     * @return {Object}
      */
     async request(payload) {}
 
     /**
      * @description get authentication token
-     * @param {OBJECT} options 
-     * @return {OBJECT} KsCs
+     * @param {Object} options 
+     * @return {Object} KsCs
      */
     async connect(options) {}
 
     /**
      * @description get value from path
-     * @param {OBJECT} target 
-     * @param {STRING} path 
+     * @param {Object} target 
+     * @param {String} path 
      * @return {*}
      */
     getFromPath(target, path = null) {}
@@ -135,7 +135,7 @@ class KsCs {
     /**
      * @description get url params as string 
      * @param {FUNCTION} param.log
-     * @return {STRING}
+     * @return {String}
      */
     paramToStr(param) {}
 }

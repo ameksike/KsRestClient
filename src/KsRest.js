@@ -1,11 +1,13 @@
-/*
+/**
  * @author		Antonio Membrides Espinosa
  * @email		tonykssa@gmail.com
  * @date		20/08/2021
- * @copyright  	Copyright (c) 2020-2030
+ * @description Observer pattern
+ * @copyright  	Copyright (c) 2019-2050
  * @license    	GPL
- * @version    	1.0 
- * */
+ * @version    	1.0
+ **/
+
 const axios = require('axios');
 const KsCs = require('./KsCs');
 
@@ -78,15 +80,15 @@ class KsRest extends KsCs {
     /**
      * @description update an entity
      * @param {*} payload 
-     * @param {*} id 
-     * @param {*} query 
+     * @param {Number|String} id 
+     * @param {String} query 
      */
     async update(payload, id = null, query = null) {
         try {
             const request = this.getReq();
             query = this.paramToStr(query);
             query = query ? '?' + query : '';
-            id = payload && payload.id ? payload.id : id;
+            id = payload?.id || id;
             id = id ? '/' + id : '';
             request.url += id + query;
             request.data = payload;
@@ -184,12 +186,12 @@ class KsRest extends KsCs {
      */
     async connect(opt) {
         try {
-            const oauth = opt && opt.oauth ? opt.oauth : this.oauth;
-            const basic = opt && opt.basic ? opt.basic : this.basic;
+            const oauth = opt?.oauth || this.oauth;
+            const basic = opt?.basic || this.basic;
             if (oauth && oauth['grant_type'] === 'client_credentials') {
-                return this.getClientCredentials(oauth);
+                return await this.getClientCredentials(oauth);
             } else if (basic) {
-                return this.getBasicCredentials(basic);
+                return await this.getBasicCredentials(basic);
             }
             return null;
         } catch (err) {
@@ -202,13 +204,13 @@ class KsRest extends KsCs {
 
     /**
      * @description get Client Credentials for OAuth
-     * @param {OBJECT} oauth 
-     * @param {STRING} oauth.grant_type VALUES [client_credentials]
-     * @param {STRING} oauth.client_id
-     * @param {STRING} oauth.client_secret
-     * @param {STRING} oauth.client_authentication VALUES [body, header] 
-     * @param {STRING} oauth.url_access 
-     * @param {STRING} oauth.scope 
+     * @param {Object} oauth 
+     * @param {String} oauth.grant_type VALUES [client_credentials]
+     * @param {String} oauth.client_id
+     * @param {String} oauth.client_secret
+     * @param {String} oauth.client_authentication VALUES [body, header] 
+     * @param {String} oauth.url_access 
+     * @param {String} oauth.scope 
      */
     async getClientCredentials(oauth) {
         if (!oauth.url_access) {
@@ -244,14 +246,14 @@ class KsRest extends KsCs {
 
     /**
      * @description get Client Credentials for Basic method
-     * @param {OBJECT} opt 
-     * @param {STRING} opt.client_id
-     * @param {STRING} opt.client_secret
-     * @param {STRING} opt.url_access 
-     * @param {STRING} opt.token_path 
-     * @param {STRING} opt.client_id_field VALUES [username] 
-     * @param {STRING} opt.client_secret_field VALUES [password] 
-     * @param {STRING} opt.client_authentication VALUES [body, header] 
+     * @param {Object} opt 
+     * @param {String} opt.client_id
+     * @param {String} opt.client_secret
+     * @param {String} opt.url_access 
+     * @param {String} opt.token_path 
+     * @param {String} opt.client_id_field VALUES [username] 
+     * @param {String} opt.client_secret_field VALUES [password] 
+     * @param {String} opt.client_authentication VALUES [body, header] 
      */
     async getBasicCredentials(opt) {
         opt.client_id = opt.client_id || opt.username;

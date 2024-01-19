@@ -129,13 +129,13 @@ BODY {
 ```
 
 The options supported in the basic authentication model are described below: 
-* **client_id:** {STRING} [REQUIRED] it is client identifier and username is also supported as property name
-* **client_secret:** {STRING}  [REQUIRED] it is client secret code and password  is also supported as property name
-* **url_access:** {STRING} [REQUIRED] it is url access from authentication server 
-* **token_path:** {STRING} [OPTIONAL] it is a path to find access token in response object  
-* **client_id_field:** {STRING} [OPTIONAL] it is a name for the property that contains the value of client_id, only when the credential data is sent in body and by default is username
-* **client_secret_field:** {STRING} [OPTIONAL] it is a name for the property that contains the value of client_secret, only when the credential data is sent in body and by default is password
-* **client_authentication:** {STRING} [OPTIONAL] it defines if the credential data is sent in the header or in the body, by default it is header 
+* **client_id:** {String} [REQUIRED] it is client identifier and username is also supported as property name
+* **client_secret:** {String}  [REQUIRED] it is client secret code and password  is also supported as property name
+* **url_access:** {String} [REQUIRED] it is url access from authentication server 
+* **token_path:** {String} [OPTIONAL] it is a path to find access token in response object  
+* **client_id_field:** {String} [OPTIONAL] it is a name for the property that contains the value of client_id, only when the credential data is sent in body and by default is username
+* **client_secret_field:** {String} [OPTIONAL] it is a name for the property that contains the value of client_secret, only when the credential data is sent in body and by default is password
+* **client_authentication:** {String} [OPTIONAL] it defines if the credential data is sent in the header or in the body, by default it is header 
 
 
 ## OAuth
@@ -235,12 +235,12 @@ const data = await srv.get();
 Note that the connect method must be invoked before executing any action that requires this authorization model, in this way the access token is automatically managed. On the other hand, you can change the way in which the access credentials are sent to the authentication server through the **client_authentication** property, determining it is sent from the **header** or the **body** of the request, this depends on the implementation that supports the authentication server.
 
 The options supported in the OAuth Client Credentials flow are described below:
-* **client_id:** {STRING} [REQUIRED] it is client identifier and username is also supported as property name
-* **client_secret:** {STRING} [REQUIRED] it is client secret code and password  is also supported as property name
-* **url_access:** {STRING} [REQUIRED] it is url access from authentication server 
-* **grant_type:** {STRING} [REQUIRED] it refers to the way an application gets an access token
-* **client_authentication:** {STRING} [OPTIONAL] it defines if the credential data is sent in the header or in the body, by default it is body
-* **scope:** {STRING} [OPTIONAL] Scope is a mechanism in OAuth 2.0 to limit an application's access to a user's account. An application can request one or more scopes, this information is then presented to the user in the consent screen, and the access token issued to the application will be limited to the scopes granted. 
+* **client_id:** {String} [REQUIRED] it is client identifier and username is also supported as property name
+* **client_secret:** {String} [REQUIRED] it is client secret code and password  is also supported as property name
+* **url_access:** {String} [REQUIRED] it is url access from authentication server 
+* **grant_type:** {String} [REQUIRED] it refers to the way an application gets an access token
+* **client_authentication:** {String} [OPTIONAL] it defines if the credential data is sent in the header or in the body, by default it is body
+* **scope:** {String} [OPTIONAL] Scope is a mechanism in OAuth 2.0 to limit an application's access to a user's account. An application can request one or more scopes, this information is then presented to the user in the consent screen, and the access token issued to the application will be limited to the scopes granted. 
 
 
 For the previous example, at the call to the **connect** function would be generated a flow as described below:

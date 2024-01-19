@@ -1,12 +1,12 @@
-/*
+/**
  * @author		Antonio Membrides Espinosa
  * @email		tonykssa@gmail.com
  * @date		20/08/2021
- * @copyright  	Copyright (c) 2020-2030
+ * @description Observer pattern
+ * @copyright  	Copyright (c) 2019-2050
  * @license    	GPL
- * @version    	1.0 
- * */
-
+ * @version    	1.0
+ **/
 class KsCs {
     /**
      * @description initialize the service 
@@ -30,7 +30,7 @@ class KsCs {
     /**
      * @description get request
      */
-    getReq() {}
+    getReq() { /* TODO document why this method 'getReq' is empty */ }
 
     /**
      * @description initialize the service 
@@ -58,7 +58,7 @@ class KsCs {
     /**
      * @description list all entities 
      */
-    async list(query = null) {}
+    async list(query = null) { /* TODO document why this async method 'list' is empty */ }
 
     /**
      * @description alias for insert action 
@@ -72,7 +72,7 @@ class KsCs {
      * @description insert an entity
      * @param {*} payload 
      */
-    async insert(payload) {}
+    async insert(payload) { /* TODO document why this async method 'insert' is empty */ }
 
     /**
      * @description update an entity
@@ -80,26 +80,26 @@ class KsCs {
      * @param {*} id 
      * @param {*} query 
      */
-    async update(payload, id = null, query = null) {}
+    async update(payload, id = null, query = null) { /* TODO document why this async method 'update' is empty */ }
 
     /**
      * @description delete an entity
      * @param {*} id 
      */
-    async delete(id, query = null) {}
+    async delete(id, query = null) { /* TODO document why this async method 'delete' is empty */ }
 
     /**
      * @description get an entity
      * @param {*} id 
      * @param {*} query 
      */
-    async select(id, query = null) {}
+    async select(id, query = null) { /* TODO document why this async method 'select' is empty */ }
 
     /**
      * @description custom query
      * @param {*} payload 
      */
-    async query(payload) {}
+    async query(payload) { /* TODO document why this async method 'query' is empty */ }
 
     /**
      * @description custom query
@@ -112,7 +112,7 @@ class KsCs {
     /**
      * @description get authentication token
      */
-    async connect(opt) {}
+    async connect(opt) { /* TODO document why this async method 'connect' is empty */ }
 
     /**
      * @description get From Path
@@ -131,16 +131,17 @@ class KsCs {
 
     /**
      * @description get params as string 
-     * @param {FUNCTION} param.log
-     * @param {STRING} param.url
-     * @param {STRING} param.key
-     * @param {STRING} param.end alias for endpoint
-     * @param {OBJECT} param.params 
-     * @param {STRING} param.endpoint 
-     * @param {STRING} param.token default Bearer
-     * @param {STRING} param.contentType default application/json
-     * @param {STRING} param.endpoint 
-     * @param {OBJECT} param.headers 
+     * @param {Object} param
+     * @param {Console} param.log
+     * @param {String} param.url
+     * @param {String} param.key
+     * @param {String} param.end alias for endpoint
+     * @param {Object} param.params 
+     * @param {String} param.endpoint 
+     * @param {String} param.token default Bearer
+     * @param {String} param.contentType default application/json
+     * @param {String} param.endpoint 
+     * @param {Object} param.headers 
      */
     paramToStr(param) {
         let src = '';
