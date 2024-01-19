@@ -8,7 +8,8 @@
     "test": "jest",
     "test:match": "jest -t",
     "test:detect": "jest --detectOpenHandles",
-    "type": "npx -p typescript tsc ./index.js --target ES2022 --module commonjs --declaration --allowJs --emitDeclarationOnly --outDir types"
+    "tsc:type": "npx -p typescript tsc ./index.js --target ES2022 --module commonjs --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "tsc:watch": "tsc --noEmit --watch "
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "jest": "^26.5.0"
+    "jest": "^26.5.0",
+    "typescript": "^5.3.3"
   }
 }
