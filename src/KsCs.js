@@ -7,9 +7,28 @@
  * @license    	GPL
  * @version    	1.0
  **/
+
+/**
+ * @typedef {({[name:String]:Object})} List 
+ * @typedef {'Bearer' | 'Basic'} EnumTokenType
+ * @typedef {'application/json' | 'application/xml' | 'text/html' | 'text/javascript'| 'application/gzip' } EnumTokenType
+ **/
+
+/**
+ * @typedef {Object} KsCsOpt
+ * @property {String} [url]
+ * @property {String} [key]
+ * @property {String} [end]
+ * @property {String} [endpoint]
+ * @property {EnumTokenType} [token=Bearer]
+ * @property {EnumTokenType|String} [contentType=application/json]
+ * @property {String|List} [params]
+ * 
+ */
 class KsCs {
     /**
      * @description initialize the service 
+     * @param {KsCsOpt} [payload=null]
      */
     constructor(payload = null) {
         this.url = '';
@@ -34,7 +53,8 @@ class KsCs {
 
     /**
      * @description initialize the service 
-     * @param {*} payload.
+     * @param {*} payload
+     * @returns {KsCs} self
      */
     set(payload = null) {
         if (!payload) return this;
@@ -49,7 +69,8 @@ class KsCs {
 
     /**
      * @description alias for list action 
-     * @param {*} query 
+     * @param {List} [query=null] 
+     * @returns {*} result
      */
     async get(query = null) {
         return this.list(query);
@@ -57,6 +78,8 @@ class KsCs {
 
     /**
      * @description list all entities 
+     * @param {List} [query=null]
+     * @returns {*} result
      */
     async list(query = null) { /* TODO document why this async method 'list' is empty */ }
 
@@ -77,21 +100,22 @@ class KsCs {
     /**
      * @description update an entity
      * @param {*} payload 
-     * @param {*} id 
-     * @param {*} query 
+     * @param {Number|String} id 
+     * @param {String} query 
      */
     async update(payload, id = null, query = null) { /* TODO document why this async method 'update' is empty */ }
 
     /**
      * @description delete an entity
-     * @param {*} id 
+     * @param {Number|String} id 
+     * @param {List} query 
      */
     async delete(id, query = null) { /* TODO document why this async method 'delete' is empty */ }
 
     /**
      * @description get an entity
-     * @param {*} id 
-     * @param {*} query 
+     * @param {Number|String} id 
+     * @param {List} query 
      */
     async select(id, query = null) { /* TODO document why this async method 'select' is empty */ }
 
@@ -117,7 +141,7 @@ class KsCs {
     /**
      * @description get From Path
      * @param {*} obj 
-     * @param {*} path 
+     * @param {List|String} path 
      */
     getFromPath(obj, path = null) {
         if (!path) return null;

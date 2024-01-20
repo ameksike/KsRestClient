@@ -14,6 +14,10 @@ const KsCs = require('./KsCs');
 class KsWc {
     /**
      * @description initialize the service 
+     * @param {Object} [payload]
+     * @param {typeof KsCs} [payload.driver]
+     * @param {String} [payload.end] alias of endpoint
+     * @param {String} [payload.endpoint] 
      */
     constructor(payload = null) {
         this.driver = KsRest;
@@ -23,7 +27,11 @@ class KsWc {
 
     /**
      * @description initialize the service 
-     * @param {*} payload
+     * @param {Object} [payload]
+     * @param {typeof KsCs} [payload.driver]
+     * @param {String} [payload.end] alias of endpoint
+     * @param {String} [payload.endpoint] 
+     * @returns {KsWc} self
      */
     set(payload = null) {
         if (!payload) return this;
@@ -39,7 +47,7 @@ class KsWc {
             if (!this.config.end.default) {
                 throw new Error('"default" endpoint is required');
             }
-            const opt = JSON.parse(JSON.stringify(this.config));
+            const opt = this.#cloneObj(this.config);
             for (let i in this.config.end) {
                 const opts = typeof (this.config.end[i]) === 'string' ? {
                     end: this.config.end[i]
@@ -54,10 +62,26 @@ class KsWc {
     }
 
     /**
-     * @description build instance 
-     * @param {*} opt 
+     * @description clone objects
+     * @private
+     * @param {Object} obj 
+     * @returns {Object} clone 
      */
-    build(opt) {
+    #cloneObj(obj) {
+        try {
+            return JSON.parse(JSON.stringify(obj));
+        }
+        catch (error) {
+            return null
+        }
+    }
+
+    /**
+     * @description build instance 
+     * @param {Object} [opt={}] 
+     * @returns {Object} instance
+     */
+    build(opt = {}) {
         const Drv = this.driver;
         return new Drv(opt);
     }
@@ -100,7 +124,7 @@ class KsWc {
     /**
      * @description update an entity
      * @param {*} payload 
-     * @param {*} id 
+     * @param {Number|String} id 
      * @param {*} query 
      */
     async update(payload, id = null, query = null) {
@@ -110,7 +134,7 @@ class KsWc {
 
     /**
      * @description delete an entity
-     * @param {*} id 
+     * @param {Number|String} id 
      */
     async delete(id, query = null) {
         if (!this.default) return false;
@@ -119,7 +143,7 @@ class KsWc {
 
     /**
      * @description get an entity
-     * @param {*} id 
+     * @param {Number|String} id 
      * @param {*} query 
      */
     async select(id, query = null) {

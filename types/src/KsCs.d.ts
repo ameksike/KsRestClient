@@ -8,11 +8,28 @@ export = KsCs;
  * @license    	GPL
  * @version    	1.0
  **/
+/**
+ * @typedef {({[name:String]:Object})} List
+ * @typedef {'Bearer' | 'Basic'} EnumTokenType
+ * @typedef {'application/json' | 'application/xml' | 'text/html' | 'text/javascript'| 'application/gzip' } EnumTokenType
+ **/
+/**
+ * @typedef {Object} KsCsOpt
+ * @property {String} [url]
+ * @property {String} [key]
+ * @property {String} [end]
+ * @property {String} [endpoint]
+ * @property {EnumTokenType} [token=Bearer]
+ * @property {EnumTokenType|String} [contentType=application/json]
+ * @property {String|List} [params]
+ *
+ */
 declare class KsCs {
     /**
      * @description initialize the service
+     * @param {KsCsOpt} [payload=null]
      */
-    constructor(payload?: any);
+    constructor(payload?: KsCsOpt);
     url: string;
     key: string;
     end: string;
@@ -29,18 +46,22 @@ declare class KsCs {
     getReq(): void;
     /**
      * @description initialize the service
-     * @param {*} payload.
+     * @param {*} payload
+     * @returns {KsCs} self
      */
-    set(payload?: any): this;
+    set(payload?: any): KsCs;
     /**
      * @description alias for list action
-     * @param {*} query
+     * @param {List} [query=null]
+     * @returns {*} result
      */
-    get(query?: any): Promise<void>;
+    get(query?: List): any;
     /**
      * @description list all entities
+     * @param {List} [query=null]
+     * @returns {*} result
      */
-    list(query?: any): Promise<void>;
+    list(query?: List): any;
     /**
      * @description alias for insert action
      * @param {*} payload
@@ -54,18 +75,18 @@ declare class KsCs {
     /**
      * @description update an entity
      * @param {*} payload
-     * @param {*} id
-     * @param {*} query
+     * @param {Number|String} id
+     * @param {String} query
      */
-    update(payload: any, id?: any, query?: any): Promise<void>;
+    update(payload: any, id?: number | string, query?: string): Promise<void>;
     /**
      * @description delete an entity
-     * @param {*} id
+     * @param {Number|String} id
      */
     delete(id: any, query?: any): Promise<void>;
     /**
      * @description get an entity
-     * @param {*} id
+     * @param {Number|String} id
      * @param {*} query
      */
     select(id: any, query?: any): Promise<void>;
@@ -116,3 +137,19 @@ declare class KsCs {
         headers: any;
     }): string;
 }
+declare namespace KsCs {
+    export { List, EnumTokenType, KsCsOpt };
+}
+type List = {
+    [name: string]: any;
+};
+type EnumTokenType = 'Bearer' | 'Basic';
+type KsCsOpt = {
+    url?: string;
+    key?: string;
+    end?: string;
+    endpoint?: string;
+    token?: EnumTokenType;
+    contentType?: EnumTokenType | string;
+    params?: string | List;
+};

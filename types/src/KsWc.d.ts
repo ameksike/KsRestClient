@@ -2,26 +2,43 @@ export = KsWc;
 declare class KsWc {
     /**
      * @description initialize the service
+     * @param {Object} [payload]
+     * @param {typeof KsCs} [payload.driver]
+     * @param {String} [payload.end] alias of endpoint
+     * @param {String} [payload.endpoint]
      */
-    constructor(payload?: any);
+    constructor(payload?: {
+        driver?: typeof KsCs;
+        end?: string;
+        endpoint?: string;
+    });
     driver: typeof KsRest;
     config: {};
     /**
      * @description initialize the service
-     * @param {*} payload
+     * @param {Object} [payload]
+     * @param {typeof KsCs} [payload.driver]
+     * @param {String} [payload.end] alias of endpoint
+     * @param {String} [payload.endpoint]
+     * @returns {KsWc} self
      */
-    set(payload?: any): this;
-    default: KsRest;
+    set(payload?: {
+        driver?: typeof KsCs;
+        end?: string;
+        endpoint?: string;
+    }): KsWc;
+    default: any;
     /**
      * @description build instance
-     * @param {*} opt
+     * @param {Object} [opt={}]
+     * @returns {Object} instance
      */
-    build(opt: any): KsRest;
+    build(opt?: any): any;
     /**
      * @description alias for list action
      * @param {*} query
      */
-    get(query?: any): Promise<false | void>;
+    get(query?: any): Promise<any>;
     /**
      * @description list all entities
      */
@@ -30,7 +47,7 @@ declare class KsWc {
      * @description alias for insert action
      * @param {*} payload
      */
-    add(payload: any): Promise<false | void>;
+    add(payload: any): Promise<any>;
     /**
      * @description insert an entity
      * @param {*} payload
@@ -39,18 +56,18 @@ declare class KsWc {
     /**
      * @description update an entity
      * @param {*} payload
-     * @param {*} id
+     * @param {Number|String} id
      * @param {*} query
      */
     update(payload: any, id?: any, query?: any): Promise<any>;
     /**
      * @description delete an entity
-     * @param {*} id
+     * @param {Number|String} id
      */
     delete(id: any, query?: any): Promise<any>;
     /**
      * @description get an entity
-     * @param {*} id
+     * @param {Number|String} id
      * @param {*} query
      */
     select(id: any, query?: any): Promise<any>;
@@ -63,10 +80,12 @@ declare class KsWc {
      * @description custom query
      * @param {*} payload
      */
-    request(payload: any): Promise<false | void>;
+    request(payload: any): Promise<any>;
     /**
      * @description get authentication token
      */
     connect(opt: any): Promise<any>;
+    #private;
 }
 import KsRest = require("./KsRest");
+import KsCs = require("./KsCs");

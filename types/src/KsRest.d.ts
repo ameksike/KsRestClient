@@ -6,37 +6,11 @@ declare class KsRest extends KsCs {
     getReq(): any;
     headers: any;
     options: any;
-    /**
-     * @description list all entities
-     */
     list(query?: any): Promise<any>;
-    /**
-     * @description insert an entity
-     * @param {*} payload
-     */
     insert(payload: any): Promise<any>;
-    /**
-     * @description update an entity
-     * @param {*} payload
-     * @param {Number|String} id
-     * @param {String} query
-     */
-    update(payload: any, id?: number | string, query?: string): Promise<any>;
-    /**
-     * @description delete an entity
-     * @param {*} id
-     */
+    update(payload: any, id?: any, query?: any): Promise<any>;
     delete(id: any, query?: any): Promise<any>;
-    /**
-     * @description get an entity
-     * @param {*} id
-     * @param {*} query
-     */
     select(id: any, query?: any): Promise<any>;
-    /**
-     * @description custom query
-     * @param {*} payload
-     */
     query(payload: any): Promise<any>;
     /**
      * @description get authentication token

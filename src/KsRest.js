@@ -32,10 +32,7 @@ class KsRest extends KsCs {
         }
         return request;
     }
-
-    /**
-     * @description list all entities 
-     */
+    
     async list(query = null) {
         try {
             const request = this.getReq();
@@ -54,11 +51,7 @@ class KsRest extends KsCs {
             return null;
         }
     }
-
-    /**
-     * @description insert an entity
-     * @param {*} payload 
-     */
+    
     async insert(payload) {
         try {
             const request = this.getReq();
@@ -76,13 +69,7 @@ class KsRest extends KsCs {
             return null;
         }
     }
-
-    /**
-     * @description update an entity
-     * @param {*} payload 
-     * @param {Number|String} id 
-     * @param {String} query 
-     */
+    
     async update(payload, id = null, query = null) {
         try {
             const request = this.getReq();
@@ -105,11 +92,7 @@ class KsRest extends KsCs {
             return null;
         }
     }
-
-    /**
-     * @description delete an entity
-     * @param {*} id 
-     */
+    
     async delete(id, query = null) {
         try {
             const request = this.getReq();
@@ -130,12 +113,7 @@ class KsRest extends KsCs {
             return null;
         }
     }
-
-    /**
-     * @description get an entity
-     * @param {*} id 
-     * @param {*} query 
-     */
+    
     async select(id, query = null) {
         try {
             const request = this.getReq();
@@ -156,11 +134,7 @@ class KsRest extends KsCs {
             return null;
         }
     }
-
-    /**
-     * @description custom query
-     * @param {*} payload 
-     */
+    
     async query(payload) {
         try {
             const req = this.getReq();

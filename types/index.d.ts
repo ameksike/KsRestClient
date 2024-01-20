@@ -1,18 +1,23 @@
 declare const _exports: {
     driver: typeof KsRest;
     config: {};
-    set(payload?: any): KsWc;
-    default: KsRest;
-    build(opt: any): KsRest;
-    get(query?: any): Promise<false | void>;
+    set(payload?: {
+        driver?: typeof KsCs;
+        end?: string;
+        endpoint?: string;
+    }): KsWc;
+    default: any;
+    "__#1@#cloneObj"(obj: any): any;
+    build(opt?: any): any;
+    get(query?: any): Promise<any>;
     list(query?: any): Promise<any>;
-    add(payload: any): Promise<false | void>;
+    add(payload: any): Promise<any>;
     insert(payload: any): Promise<any>;
     update(payload: any, id?: any, query?: any): Promise<any>;
     delete(id: any, query?: any): Promise<any>;
     select(id: any, query?: any): Promise<any>;
     query(payload: any): Promise<any>;
-    request(payload: any): Promise<false | void>;
+    request(payload: any): Promise<any>;
     connect(opt: any): Promise<any>;
     API: typeof API;
 };
@@ -25,5 +30,5 @@ export namespace API {
 }
 export { KsWc as API };
 import KsRest = require("./src/KsRest");
-import KsWc = require("./src/KsWc");
 import KsCs = require("./src/KsCs");
+import KsWc = require("./src/KsWc");
