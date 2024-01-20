@@ -13,9 +13,9 @@ declare const _exports: {
     list(query?: any): Promise<any>;
     add(payload: any): Promise<any>;
     insert(payload: any): Promise<any>;
-    update(payload: any, id?: any, query?: any): Promise<any>;
-    delete(id: any, query?: any): Promise<any>;
-    select(id: any, query?: any): Promise<any>;
+    update(payload: any, id?: string | number, query?: any): Promise<any>;
+    delete(id: string | number, query?: any): Promise<any>;
+    select(id: string | number, query?: any): Promise<any>;
     query(payload: any): Promise<any>;
     request(payload: any): Promise<any>;
     connect(opt: any): Promise<any>;

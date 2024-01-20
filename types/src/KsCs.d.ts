@@ -82,14 +82,15 @@ declare class KsCs {
     /**
      * @description delete an entity
      * @param {Number|String} id
+     * @param {List} query
      */
-    delete(id: any, query?: any): Promise<void>;
+    delete(id: number | string, query?: List): Promise<void>;
     /**
      * @description get an entity
      * @param {Number|String} id
-     * @param {*} query
+     * @param {List} query
      */
-    select(id: any, query?: any): Promise<void>;
+    select(id: number | string, query?: List): Promise<void>;
     /**
      * @description custom query
      * @param {*} payload
@@ -107,9 +108,9 @@ declare class KsCs {
     /**
      * @description get From Path
      * @param {*} obj
-     * @param {*} path
+     * @param {List|String} path
      */
-    getFromPath(obj: any, path?: any): any;
+    getFromPath(obj: any, path?: List | string): any;
     /**
      * @description get params as string
      * @param {Object} param

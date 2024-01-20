@@ -59,18 +59,18 @@ declare class KsWc {
      * @param {Number|String} id
      * @param {*} query
      */
-    update(payload: any, id?: any, query?: any): Promise<any>;
+    update(payload: any, id?: number | string, query?: any): Promise<any>;
     /**
      * @description delete an entity
      * @param {Number|String} id
      */
-    delete(id: any, query?: any): Promise<any>;
+    delete(id: number | string, query?: any): Promise<any>;
     /**
      * @description get an entity
      * @param {Number|String} id
      * @param {*} query
      */
-    select(id: any, query?: any): Promise<any>;
+    select(id: number | string, query?: any): Promise<any>;
     /**
      * @description custom query
      * @param {*} payload
