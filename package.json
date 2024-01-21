@@ -1,6 +1,6 @@
 {
   "name": "kswc",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "description": "Library to make your Web API deployment easier",
   "main": "index.js",
   "types": "types/index.d.ts",

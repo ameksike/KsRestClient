@@ -11,13 +11,46 @@
 const KsRest = require('./KsRest');
 const KsCs = require('./KsCs');
 
+/**
+ * @template {any} [T=object]
+ * @typedef {{[name:String]: T }} TList 
+ */
+
+/**
+ * @typedef {'Bearer' | 'Basic'} TTokenType
+ * @typedef {'application/json' | 'application/xml' | 'text/html' | 'text/javascript'| 'application/gzip' } TContType
+ * @typedef {'arraybuffer' | 'document' | 'json' | 'text' | 'stream' | 'blob' } TResType
+ * @typedef {'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head' | 'trace' | 'connect' } THttpAction
+ **/
+
+/**
+ * @typedef {Object} KsOption
+ * @property {String} [url]
+ * @property {String} [key]
+ * @property {String} [end]
+ * @property {String} [endpoint]
+ * @param {typeof KsCs} [payload.driver]
+ * @property {TTokenType} [token=Bearer]
+ * @property {TContType|String} [contentType=application/json]
+ * @property {String|TList} [params]
+ */
+
 class KsWc {
     /**
+     * @type {typeof KsCs}
+     * @protected
+     */
+    driver = null;
+    /**
+     * @type {KsCs}
+     * @protected
+     * @instance
+     */
+    default = null;
+
+    /**
      * @description initialize the service 
-     * @param {Object} [payload]
-     * @param {typeof KsCs} [payload.driver]
-     * @param {String} [payload.end] alias of endpoint
-     * @param {String} [payload.endpoint] 
+     * @param {KsOption} [payload]
      */
     constructor(payload = null) {
         this.driver = KsRest;
@@ -27,10 +60,7 @@ class KsWc {
 
     /**
      * @description initialize the service 
-     * @param {Object} [payload]
-     * @param {typeof KsCs} [payload.driver]
-     * @param {String} [payload.end] alias of endpoint
-     * @param {String} [payload.endpoint] 
+     * @param {KsOption} [payload]
      * @returns {KsWc} self
      */
     set(payload = null) {
@@ -78,7 +108,7 @@ class KsWc {
 
     /**
      * @description build instance 
-     * @param {Object} [opt={}] 
+     * @param {KsOption} [opt={}] 
      * @returns {Object} instance
      */
     build(opt = {}) {
@@ -87,8 +117,9 @@ class KsWc {
     }
 
     /**
-     * @description alias for list action 
-     * @param {*} query 
+     * @description alias for TList action 
+     * @param {TList} [query=null] 
+     * @returns {*} result
      */
     async get(query = null) {
         if (!this.default) return false;
@@ -97,6 +128,8 @@ class KsWc {
 
     /**
      * @description list all entities 
+     * @param {TList} [query=null]
+     * @returns {*} result
      */
     async list(query = null) {
         if (!this.default) return false;
@@ -105,7 +138,8 @@ class KsWc {
 
     /**
      * @description alias for insert action 
-     * @param {*} payload 
+     * @param {TList|String} payload 
+     * @returns {*} result 
      */
     async add(payload) {
         if (!this.default) return false;
@@ -114,7 +148,8 @@ class KsWc {
 
     /**
      * @description insert an entity
-     * @param {*} payload 
+     * @param {TList|String} payload 
+     * @returns {*} result 
      */
     async insert(payload) {
         if (!this.default) return false;
@@ -123,9 +158,10 @@ class KsWc {
 
     /**
      * @description update an entity
-     * @param {*} payload 
-     * @param {Number|String} id 
-     * @param {*} query 
+     * @param {TList|String} payload 
+     * @param {Number|String} [id] 
+     * @param {TList|String} [query] 
+     * @returns {*} result 
      */
     async update(payload, id = null, query = null) {
         if (!this.default) return false;
@@ -135,6 +171,8 @@ class KsWc {
     /**
      * @description delete an entity
      * @param {Number|String} id 
+     * @param {TList} [query] 
+     * @returns {*} result 
      */
     async delete(id, query = null) {
         if (!this.default) return false;
@@ -144,7 +182,8 @@ class KsWc {
     /**
      * @description get an entity
      * @param {Number|String} id 
-     * @param {*} query 
+     * @param {TList} [query] 
+     * @returns {*} result 
      */
     async select(id, query = null) {
         if (!this.default) return false;
@@ -153,7 +192,8 @@ class KsWc {
 
     /**
      * @description custom query
-     * @param {*} payload 
+     * @param {ReqConfig} payload 
+     * @returns {*} result 
      */
     async query(payload) {
         if (!this.default) return false;
@@ -161,8 +201,9 @@ class KsWc {
     }
 
     /**
-     * @description custom query
-     * @param {*} payload 
+     * @description alias for custom query
+     * @param {ReqConfig} payload 
+     * @returns {*} result 
      */
     async request(payload) {
         if (!this.default) return false;
@@ -171,6 +212,8 @@ class KsWc {
 
     /**
      * @description get authentication token
+     * @param {TList} [opt=null]
+     * @returns {*} result 
      */
     async connect(opt) {
         if (!this.default) return false;

@@ -1,34 +1,27 @@
 declare const _exports: {
-    driver: typeof KsRest;
+    API: typeof KsWc;
+    Cls: typeof KsWc;
+    KsWc: typeof KsWc;
+    KsRest: typeof KsRest;
+    KsCs: typeof KsCs;
+    driver: typeof KsCs;
+    default: KsCs;
     config: {};
-    set(payload?: {
-        driver?: typeof KsCs;
-        end?: string;
-        endpoint?: string;
-    }): KsWc;
-    default: any;
+    set(payload?: KsWc.KsOption): KsWc;
     "__#1@#cloneObj"(obj: any): any;
-    build(opt?: any): any;
-    get(query?: any): Promise<any>;
-    list(query?: any): Promise<any>;
-    add(payload: any): Promise<any>;
-    insert(payload: any): Promise<any>;
-    update(payload: any, id?: string | number, query?: any): Promise<any>;
-    delete(id: string | number, query?: any): Promise<any>;
-    select(id: string | number, query?: any): Promise<any>;
-    query(payload: any): Promise<any>;
-    request(payload: any): Promise<any>;
-    connect(opt: any): Promise<any>;
-    API: typeof API;
+    build(opt?: KsWc.KsOption): any;
+    get(query?: KsWc.TList<any>): any;
+    list(query?: KsWc.TList<any>): any;
+    add(payload: string | KsWc.TList<any>): any;
+    insert(payload: string | KsWc.TList<any>): any;
+    update(payload: string | KsWc.TList<any>, id?: string | number, query?: string | KsWc.TList<any>): any;
+    delete(id: string | number, query?: KsWc.TList<any>): any;
+    select(id: string | number, query?: KsWc.TList<any>): any;
+    query(payload: ReqConfig): any;
+    request(payload: ReqConfig): any;
+    connect(opt?: KsWc.TList<any>): any;
 };
 export = _exports;
-export namespace API {
-    namespace type {
-        export { KsRest };
-        export { KsCs };
-    }
-}
-export { KsWc as API };
+import KsWc = require("./src/KsWc");
 import KsRest = require("./src/KsRest");
 import KsCs = require("./src/KsCs");
-import KsWc = require("./src/KsWc");

@@ -1,4 +1,4 @@
-const srv = require('kswc');
+const srv = require('../');
 const app = require('./test.server');
 
 const endpoint1 = '/api/person';
@@ -9,7 +9,7 @@ afterAll(() => app.stop());
 describe('Extension', () => {
     it("should a valid extension", async (done) => {
 
-        class MyService extends srv.API.type.KsRest {
+        class MyService extends srv.KsRest {
 
             constructor(payload = null) {
                 super(payload);
