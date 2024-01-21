@@ -29,7 +29,7 @@ const KsCs = require('./KsCs');
  * @property {String} [key]
  * @property {String} [end]
  * @property {String} [endpoint]
- * @param {typeof KsCs} [payload.driver]
+ * @property {typeof KsCs} [driver]
  * @property {TTokenType} [token=Bearer]
  * @property {TContType|String} [contentType=application/json]
  * @property {String|TList} [params]
