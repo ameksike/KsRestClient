@@ -1,12 +1,15 @@
 {
   "name": "kswc",
-  "version": "1.2.6",
+  "version": "1.2.7",
   "description": "Library to make your Web API deployment easier",
   "main": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "jest",
     "test:match": "jest -t",
-    "test:detect": "jest --detectOpenHandles"
+    "test:detect": "jest --detectOpenHandles",
+    "tsc:type": "npx -p typescript tsc ./index.js --target ES2022 --module commonjs --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "tsc:watch": "tsc --noEmit --watch "
   },
   "repository": {
     "type": "git",
@@ -16,7 +19,9 @@
     "Ksike",
     "REST",
     "API",
+    "TEST",
     "WEB",
+    "Auth",
     "deploy"
   ],
   "author": "Antonio Membrides Espinosa",
@@ -26,12 +31,14 @@
   },
   "homepage": "https://github.com/ameksike/kswc/wiki",
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.1"
   },
   "devDependencies": {
-    "body-parser": "^1.19.0",
+    "@types/node": "^20.11.5",
+    "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "jest": "^26.5.0"
+    "express": "^4.18.2",
+    "jest": "^26.5.0",
+    "typescript": "^5.3.3"
   }
 }
