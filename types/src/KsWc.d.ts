@@ -15,7 +15,7 @@ export = KsWc;
  * @property {String} [key]
  * @property {String} [end]
  * @property {String} [endpoint]
- * @param {typeof KsCs} [payload.driver]
+ * @property {typeof KsCs} [driver]
  * @property {TTokenType} [token=Bearer]
  * @property {TContType|String} [contentType=application/json]
  * @property {String|TList} [params]
@@ -132,4 +132,8 @@ type KsOption = {
     key?: string;
     end?: string;
     endpoint?: string;
+    driver?: typeof KsCs;
+    token?: TTokenType;
+    contentType?: TContType | string;
+    params?: string | TList;
 };
