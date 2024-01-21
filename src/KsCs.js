@@ -122,7 +122,7 @@ class KsCs {
 
     /**
      * @description initialize the service 
-     * @param {*} payload
+     * @param {KsCsOpt} payload
      * @returns {KsCs} self
      */
     set(payload = null) {
@@ -171,8 +171,8 @@ class KsCs {
     /**
      * @description update an entity
      * @param {TList|String} payload 
-     * @param {Number|String} id 
-     * @param {TList|String} query 
+     * @param {Number|String} [id] 
+     * @param {TList|String} [query] 
      * @returns {*} result 
      */
     async update(payload, id = null, query = null) { /* TODO document why this async method 'update' is empty */ }
@@ -180,7 +180,7 @@ class KsCs {
     /**
      * @description delete an entity
      * @param {Number|String} id 
-     * @param {TList} query 
+     * @param {TList} [query] 
      * @returns {*} result 
      */
     async delete(id, query = null) { /* TODO document why this async method 'delete' is empty */ }
@@ -188,7 +188,7 @@ class KsCs {
     /**
      * @description get an entity
      * @param {Number|String} id 
-     * @param {TList} query 
+     * @param {TList} [query] 
      * @returns {*} result 
      */
     async select(id, query = null) { /* TODO document why this async method 'select' is empty */ }

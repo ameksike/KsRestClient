@@ -110,10 +110,10 @@ declare class KsCs {
     getReq(): ReqConfig;
     /**
      * @description initialize the service
-     * @param {*} payload
+     * @param {KsCsOpt} payload
      * @returns {KsCs} self
      */
-    set(payload?: any): KsCs;
+    set(payload?: KsCsOpt): KsCs;
     /**
      * @description alias for TList action
      * @param {TList} [query=null]
@@ -141,22 +141,22 @@ declare class KsCs {
     /**
      * @description update an entity
      * @param {TList|String} payload
-     * @param {Number|String} id
-     * @param {TList|String} query
+     * @param {Number|String} [id]
+     * @param {TList|String} [query]
      * @returns {*} result
      */
     update(payload: TList | string, id?: number | string, query?: TList | string): any;
     /**
      * @description delete an entity
      * @param {Number|String} id
-     * @param {TList} query
+     * @param {TList} [query]
      * @returns {*} result
      */
     delete(id: number | string, query?: TList): any;
     /**
      * @description get an entity
      * @param {Number|String} id
-     * @param {TList} query
+     * @param {TList} [query]
      * @returns {*} result
      */
     select(id: number | string, query?: TList): any;

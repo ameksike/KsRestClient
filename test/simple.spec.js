@@ -1,4 +1,4 @@
-const srv = require('kswc');
+const srv = require('../');
 const app = require('./test.server');
 
 beforeAll(() => app.start());
