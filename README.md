@@ -10,7 +10,7 @@ This library belong to the **Ksike** ecosystem:
 
 ### Get started
 1. Install
-```npm
+```
 npm install kswc
 ```
 2. Load
